@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Work", href: "#projects" },
@@ -23,16 +22,18 @@ export default function Navigation() {
   return (
     <>
       <motion.nav
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          scrolled ? "bg-bg/80 backdrop-blur-md border-b border-border" : "bg-transparent"
-        )}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{
+          backgroundColor: scrolled ? "rgba(10,10,10,0.85)" : "transparent",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
+          borderBottom: scrolled ? "1px solid #222" : "1px solid transparent",
+        }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
       >
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-16 flex items-center justify-between h-16 md:h-20">
-          <a href="#" className="font-[var(--font-syne)] text-xl font-bold text-text-primary tracking-tight">
+          <a href="#" className="text-xl font-extrabold text-white tracking-tight" style={{ fontFamily: "var(--font-syne), sans-serif" }}>
             P.
           </a>
 
@@ -41,7 +42,7 @@ export default function Navigation() {
               <a
                 key={link.label}
                 href={link.href}
-                className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-secondary hover:text-accent transition-colors duration-300"
+                className="text-[10px] uppercase tracking-[0.25em] text-[#A0A0A0] hover:text-[#E50914] transition-colors duration-300 font-mono"
               >
                 {link.label}
               </a>
@@ -50,7 +51,7 @@ export default function Navigation() {
               href="https://github.com/nhprince"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-secondary hover:text-accent transition-colors duration-300"
+              className="text-[10px] uppercase tracking-[0.25em] text-[#A0A0A0] hover:text-[#E50914] transition-colors duration-300 font-mono"
             >
               GitHub
             </a>
@@ -61,9 +62,9 @@ export default function Navigation() {
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
-            <span className={cn("w-6 h-0.5 bg-text-primary transition-all duration-300", mobileOpen && "rotate-45 translate-y-2")} />
-            <span className={cn("w-6 h-0.5 bg-text-primary transition-all duration-300", mobileOpen && "opacity-0")} />
-            <span className={cn("w-6 h-0.5 bg-text-primary transition-all duration-300", mobileOpen && "-rotate-45 -translate-y-2")} />
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
           </button>
         </div>
       </motion.nav>
@@ -71,30 +72,24 @@ export default function Navigation() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-bg/95 backdrop-blur-lg flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8"
+            style={{ backgroundColor: "rgba(10,10,10,0.97)", backdropFilter: "blur(20px)" }}
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.3 }}
           >
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="font-[var(--font-syne)] text-[clamp(2rem,4vw,4.5rem)] font-bold text-text-primary hover:text-accent transition-colors"
+                className="text-[clamp(2rem,4vw,4.5rem)] font-extrabold text-white hover:text-[#E50914] transition-colors"
+                style={{ fontFamily: "var(--font-syne), sans-serif" }}
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
               </a>
             ))}
-            <a
-              href="https://github.com/nhprince"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-secondary hover:text-accent transition-colors"
-            >
-              GitHub
-            </a>
           </motion.div>
         )}
       </AnimatePresence>

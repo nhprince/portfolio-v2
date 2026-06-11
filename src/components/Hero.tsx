@@ -37,27 +37,19 @@ export default function Hero() {
       const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
       setMousePos({ x, y });
     };
-
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   useEffect(() => {
     if (!gsapReady || !glowRef.current || !textRef.current) return;
-
     import("gsap").then((gsapModule) => {
       const gsap = gsapModule.default;
       gsap.to(glowRef.current, {
-        x: mousePos.x * -30,
-        y: mousePos.y * -30,
-        duration: 1.5,
-        ease: "power2.out",
+        x: mousePos.x * -30, y: mousePos.y * -30, duration: 1.5, ease: "power2.out",
       });
       gsap.to(textRef.current, {
-        x: mousePos.x * -15,
-        y: mousePos.y * -15,
-        duration: 1.5,
-        ease: "power2.out",
+        x: mousePos.x * -15, y: mousePos.y * -15, duration: 1.5, ease: "power2.out",
       });
     });
   }, [mousePos, gsapReady]);
@@ -65,15 +57,16 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-screen flex items-center justify-center overflow-hidden"
+      className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-[#0A0A0A]"
     >
       {/* Layer 1: Crimson radial glow */}
       <motion.div
         ref={glowRef}
-        className="absolute z-[1] w-[600px] md:w-[800px] h-[600px] md:h-[800px] rounded-full opacity-30 animate-[glowPulse_3s_ease-in-out_infinite]"
+        className="absolute z-[1] w-[600px] md:w-[800px] h-[600px] md:h-[800px] rounded-full opacity-30"
         style={{
           background: "radial-gradient(circle, rgba(229,9,20,0.4) 0%, transparent 70%)",
           y: glowY,
+          animation: "glowPulse 3s ease-in-out infinite",
         }}
       />
 
@@ -84,7 +77,7 @@ export default function Hero() {
         style={{ y: textY, opacity }}
       >
         <motion.p
-          className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-secondary mb-4"
+          className="text-[10px] uppercase tracking-[0.25em] text-[#A0A0A0] mb-4 font-mono"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -93,7 +86,8 @@ export default function Hero() {
         </motion.p>
 
         <motion.h1
-          className="font-[var(--font-syne)] text-[clamp(4rem,10vw,12rem)] font-extrabold text-text-primary tracking-tight"
+          className="text-[clamp(4rem,10vw,12rem)] font-extrabold text-white tracking-tight"
+          style={{ fontFamily: "var(--font-syne), sans-serif" }}
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -102,7 +96,7 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p
-          className="text-[clamp(1rem,1.2vw,1.125rem)] text-text-secondary max-w-xl mx-auto mt-6"
+          className="text-base md:text-lg text-[#A0A0A0] max-w-xl mx-auto mt-6 leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
@@ -119,13 +113,13 @@ export default function Hero() {
         >
           <a
             href="#projects"
-            className="px-6 py-3 bg-accent text-white font-mono text-[0.625rem] uppercase tracking-[0.25em] rounded-full hover:bg-accent-hover transition-colors duration-300"
+            className="px-6 py-3 bg-[#E50914] text-white text-[10px] uppercase tracking-[0.25em] rounded-full hover:bg-[#FF1A25] transition-colors duration-300 font-mono"
           >
             View My Work
           </a>
           <a
             href="#contact"
-            className="px-6 py-3 border border-border text-text-primary font-mono text-[0.625rem] uppercase tracking-[0.25em] rounded-full hover:border-accent transition-colors duration-300"
+            className="px-6 py-3 border border-[#222222] text-white text-[10px] uppercase tracking-[0.25em] rounded-full hover:border-[#E50914] transition-colors duration-300 font-mono"
           >
             Get In Touch
           </a>
@@ -140,13 +134,20 @@ export default function Hero() {
         transition={{ delay: 1.5 }}
       >
         <motion.div
-          className="w-6 h-10 border-2 border-border rounded-full flex justify-center"
+          className="w-6 h-10 border-2 border-[#222222] rounded-full flex justify-center"
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <motion.div className="w-1 h-2 bg-accent rounded-full mt-2" />
+          <motion.div className="w-1 h-2 bg-[#E50914] rounded-full mt-2" />
         </motion.div>
       </motion.div>
+
+      <style jsx>{`
+        @keyframes glowPulse {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 0.6; }
+        }
+      `}</style>
     </section>
   );
 }

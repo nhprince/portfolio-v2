@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import SmoothScroll from "@/components/SmoothScroll";
-import { siteConfig } from "@/lib/utils";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -26,29 +24,15 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: siteConfig.title,
-  description: siteConfig.description,
-  openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.title,
-    description: siteConfig.description,
-  },
+  title: "NH Prince Prodhan — Full-Stack Developer",
+  description: "Full-Stack Developer from Dhaka, Bangladesh. Building modern web applications with React, TypeScript, Node.js, and Python.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${syne.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
-    >
-      <body className="bg-bg text-text-primary antialiased">
-        <SmoothScroll>{children}</SmoothScroll>
+    <html lang="en" className={`${syne.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+      <body className="bg-[#0A0A0A] text-white antialiased">
+        {children}
       </body>
     </html>
   );

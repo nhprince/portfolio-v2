@@ -2,14 +2,13 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { siteConfig } from "@/lib/utils";
 
 export default function Contact() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="contact" className="py-16 md:py-24 lg:py-32">
+    <section id="contact" className="py-20 md:py-32 bg-[#0A0A0A]">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-16" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -17,41 +16,30 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="max-w-2xl mx-auto text-center"
         >
-          <p className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-accent mb-4">Get In Touch</p>
-          <h2 className="font-[var(--font-syne)] text-[clamp(3rem,6vw,7rem)] font-extrabold text-text-primary mb-6">Let&apos;s Work Together</h2>
-          <p className="text-[clamp(1rem,1.2vw,1.125rem)] leading-relaxed text-text-secondary mb-10">
+          <p className="text-[10px] uppercase tracking-[0.25em] text-[#E50914] mb-4 font-mono">Get In Touch</p>
+          <h2 className="text-[clamp(3rem,6vw,7rem)] font-extrabold text-white mb-6" style={{ fontFamily: "var(--font-syne), sans-serif" }}>
+            Let&apos;s Work Together
+          </h2>
+          <p className="text-sm md:text-base text-[#A0A0A0] leading-relaxed mb-10">
             Have a project in mind? I&apos;m available for freelance work and open to new opportunities.
             Let&apos;s build something amazing together.
           </p>
 
           <a
-            href={`mailto:${siteConfig.email}`}
-            className="inline-block px-8 py-4 bg-accent text-white font-mono text-[0.625rem] uppercase tracking-[0.25em] rounded-full hover:bg-accent-hover transition-all duration-300 hover:scale-105"
+            href="mailto:contact@nhprince.me"
+            className="inline-block px-8 py-4 bg-[#E50914] text-white text-[10px] uppercase tracking-[0.25em] rounded-full hover:bg-[#FF1A25] transition-all duration-300 hover:scale-105 font-mono font-semibold"
           >
-            {siteConfig.email}
+            contact@nhprince.me
           </a>
 
-          <div className="flex justify-center gap-6 mt-12">
-            <a
-              href={siteConfig.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-muted hover:text-accent transition-colors"
-            >
+          <div className="flex justify-center gap-8 mt-12 pt-8 border-t border-[#222]">
+            <a href="https://github.com/nhprince" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-[0.25em] text-[#666] hover:text-[#E50914] transition-colors font-mono">
               GitHub
             </a>
-            <a
-              href={siteConfig.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-muted hover:text-accent transition-colors"
-            >
+            <a href="https://linkedin.com/in/nh-prince-prodhan-a1b46a399" target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-[0.25em] text-[#666] hover:text-[#E50914] transition-colors font-mono">
               LinkedIn
             </a>
-            <a
-              href={`mailto:${siteConfig.email}`}
-              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-muted hover:text-accent transition-colors"
-            >
+            <a href="mailto:contact@nhprince.me" className="text-[10px] uppercase tracking-[0.25em] text-[#666] hover:text-[#E50914] transition-colors font-mono">
               Email
             </a>
           </div>
