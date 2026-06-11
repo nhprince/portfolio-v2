@@ -9,24 +9,24 @@ export default function Contact() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="section-spacing">
-      <div className="container-main" ref={ref}>
+    <section id="contact" className="py-16 md:py-24 lg:py-32">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-16" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="max-w-2xl mx-auto text-center"
         >
-          <p className="font-mono text-meta text-accent mb-4">Get In Touch</p>
-          <h2 className="font-display text-h1 text-text-primary mb-6">Let&apos;s Work Together</h2>
-          <p className="font-body text-body text-text-secondary leading-relaxed mb-10">
+          <p className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-accent mb-4">Get In Touch</p>
+          <h2 className="font-[var(--font-syne)] text-[clamp(3rem,6vw,7rem)] font-extrabold text-text-primary mb-6">Let&apos;s Work Together</h2>
+          <p className="text-[clamp(1rem,1.2vw,1.125rem)] leading-relaxed text-text-secondary mb-10">
             Have a project in mind? I&apos;m available for freelance work and open to new opportunities.
             Let&apos;s build something amazing together.
           </p>
 
           <a
             href={`mailto:${siteConfig.email}`}
-            className="inline-block px-8 py-4 bg-accent text-white font-mono text-meta rounded-full hover:bg-accent-hover transition-all duration-300 hover:scale-105"
+            className="inline-block px-8 py-4 bg-accent text-white font-mono text-[0.625rem] uppercase tracking-[0.25em] rounded-full hover:bg-accent-hover transition-all duration-300 hover:scale-105"
           >
             {siteConfig.email}
           </a>
@@ -36,7 +36,7 @@ export default function Contact() {
               href={siteConfig.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-meta text-text-muted hover:text-accent transition-colors"
+              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-muted hover:text-accent transition-colors"
             >
               GitHub
             </a>
@@ -44,13 +44,13 @@ export default function Contact() {
               href={siteConfig.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-meta text-text-muted hover:text-accent transition-colors"
+              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-muted hover:text-accent transition-colors"
             >
               LinkedIn
             </a>
             <a
               href={`mailto:${siteConfig.email}`}
-              className="font-mono text-meta text-text-muted hover:text-accent transition-colors"
+              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-muted hover:text-accent transition-colors"
             >
               Email
             </a>

@@ -20,7 +20,6 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
-    // Dynamically import gsap only on client
     import("gsap").then((gsapModule) => {
       const gsap = gsapModule.default;
       import("gsap/ScrollTrigger").then((ScrollTriggerModule) => {
@@ -43,7 +42,6 @@ export default function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // GSAP parallax on mouse move
   useEffect(() => {
     if (!gsapReady || !glowRef.current || !textRef.current) return;
 
@@ -72,7 +70,7 @@ export default function Hero() {
       {/* Layer 1: Crimson radial glow */}
       <motion.div
         ref={glowRef}
-        className="absolute z-[1] w-[800px] h-[800px] rounded-full opacity-30 animate-glow-pulse"
+        className="absolute z-[1] w-[600px] md:w-[800px] h-[600px] md:h-[800px] rounded-full opacity-30 animate-[glowPulse_3s_ease-in-out_infinite]"
         style={{
           background: "radial-gradient(circle, rgba(229,9,20,0.4) 0%, transparent 70%)",
           y: glowY,
@@ -82,11 +80,11 @@ export default function Hero() {
       {/* Layer 2: Massive display text */}
       <motion.div
         ref={textRef}
-        className="relative z-[2] text-center"
+        className="relative z-[2] text-center px-4"
         style={{ y: textY, opacity }}
       >
         <motion.p
-          className="font-mono text-meta text-text-secondary mb-4"
+          className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-secondary mb-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -95,7 +93,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.h1
-          className="font-display text-hero text-text-primary tracking-tight"
+          className="font-[var(--font-syne)] text-[clamp(4rem,10vw,12rem)] font-extrabold text-text-primary tracking-tight"
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -104,7 +102,7 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p
-          className="font-body text-body text-text-secondary max-w-xl mx-auto mt-6"
+          className="text-[clamp(1rem,1.2vw,1.125rem)] text-text-secondary max-w-xl mx-auto mt-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
@@ -121,13 +119,13 @@ export default function Hero() {
         >
           <a
             href="#projects"
-            className="px-6 py-3 bg-accent text-white font-mono text-meta rounded-full hover:bg-accent-hover transition-colors duration-300"
+            className="px-6 py-3 bg-accent text-white font-mono text-[0.625rem] uppercase tracking-[0.25em] rounded-full hover:bg-accent-hover transition-colors duration-300"
           >
             View My Work
           </a>
           <a
             href="#contact"
-            className="px-6 py-3 border border-border text-text-primary font-mono text-meta rounded-full hover:border-accent transition-colors duration-300"
+            className="px-6 py-3 border border-border text-text-primary font-mono text-[0.625rem] uppercase tracking-[0.25em] rounded-full hover:border-accent transition-colors duration-300"
           >
             Get In Touch
           </a>

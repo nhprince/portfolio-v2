@@ -79,12 +79,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "glass-card p-6 md:p-8 group hover:border-accent/30 transition-all duration-500",
+        "bg-white/[0.03] backdrop-blur-md border border-white/[0.06] rounded-2xl p-6 md:p-8 group hover:border-[rgba(229,9,20,0.3)] transition-all duration-500",
         project.featured && "md:col-span-2"
       )}
     >
       <div className="flex items-start justify-between mb-4">
-        <h3 className="font-display text-h3 text-text-primary group-hover:text-accent transition-colors duration-300">
+        <h3 className="font-[var(--font-syne)] text-[clamp(1.5rem,2.5vw,2.5rem)] font-semibold text-text-primary group-hover:text-accent transition-colors duration-300">
           {project.title}
         </h3>
         <div className="flex gap-3">
@@ -93,7 +93,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-meta text-text-muted hover:text-accent transition-colors"
+              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-muted hover:text-accent transition-colors"
             >
               Live ↗
             </a>
@@ -103,7 +103,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-meta text-text-muted hover:text-accent transition-colors"
+              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-muted hover:text-accent transition-colors"
             >
               Code ↗
             </a>
@@ -111,13 +111,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
       </div>
 
-      <p className="font-body text-body text-text-secondary mb-6 leading-relaxed">
+      <p className="text-[clamp(1rem,1.2vw,1.125rem)] leading-relaxed text-text-secondary mb-6">
         {project.description}
       </p>
 
       <div className="flex flex-wrap gap-2">
         {project.tags.map((tag) => (
-          <span key={tag} className="glass-tag font-mono text-meta text-text-muted">
+          <span
+            key={tag}
+            className="bg-white/[0.05] backdrop-blur-sm border border-white/[0.08] rounded-full px-3 py-1 font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-muted"
+          >
             {tag}
           </span>
         ))}
@@ -128,8 +131,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export default function Projects() {
   return (
-    <section id="projects" className="section-spacing">
-      <div className="container-main">
+    <section id="projects" className="py-16 md:py-24 lg:py-32">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-16">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -137,8 +140,8 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <p className="font-mono text-meta text-accent mb-4">Selected Work</p>
-          <h2 className="font-display text-h1 text-text-primary">Projects</h2>
+          <p className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-accent mb-4">Selected Work</p>
+          <h2 className="font-[var(--font-syne)] text-[clamp(3rem,6vw,7rem)] font-extrabold text-text-primary">Projects</h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

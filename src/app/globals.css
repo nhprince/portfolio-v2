@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --color-bg: #0A0A0A;
@@ -21,6 +19,50 @@
   --duration-reveal: 800ms;
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme {
+  --color-bg: #0A0A0A;
+  --color-bg-deep: #000000;
+  --color-surface: #111111;
+  --color-surface-elevated: #1A1A1A;
+  --color-border: #222222;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A0A0A0;
+  --color-text-muted: #666666;
+  --color-accent: #E50914;
+  --color-accent-glow: rgba(229, 9, 20, 0.2);
+  --color-accent-hover: #FF1A25;
+
+  --font-display: var(--font-syne), sans-serif;
+  --font-body: var(--font-space-grotesk), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+
+  --text-hero: clamp(4rem, 10vw, 12rem);
+  --text-h1: clamp(3rem, 6vw, 7rem);
+  --text-h2: clamp(2rem, 4vw, 4.5rem);
+  --text-h3: clamp(1.5rem, 2.5vw, 2.5rem);
+  --text-body: clamp(1rem, 1.2vw, 1.125rem);
+  --text-meta: 0.625rem;
+
+  --max-width-container: 1600px;
+
+  --animate-fade-in: fadeIn 0.8s ease-out forwards;
+  --animate-slide-up: slideUp 0.8s ease-out forwards;
+  --animate-glow-pulse: glowPulse 3s ease-in-out infinite;
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes slideUp {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
 }
 
 * {
@@ -54,7 +96,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -69,13 +110,11 @@ body {
   background: var(--color-accent);
 }
 
-/* Selection */
 ::selection {
   background: var(--color-accent);
   color: #FFFFFF;
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -85,7 +124,6 @@ body {
   }
 }
 
-/* 4K scaling */
 @media (min-width: 1600px) {
   html { font-size: 18px; }
 }
@@ -94,30 +132,4 @@ body {
 }
 @media (min-width: 3840px) {
   html { font-size: 24px; }
-}
-
-@layer components {
-  .container-main {
-    @apply max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-16 4xl:px-24;
-  }
-
-  .section-spacing {
-    @apply py-16 md:py-24 lg:py-32;
-  }
-
-  .glass-card {
-    @apply bg-white/[0.03] backdrop-blur-md border border-white/[0.06] rounded-2xl;
-  }
-
-  .glass-tag {
-    @apply bg-white/[0.05] backdrop-blur-sm border border-white/[0.08] rounded-full px-3 py-1 text-meta font-mono;
-  }
-
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-red-400;
-  }
-
-  .glow-accent {
-    box-shadow: 0 0 40px 10px var(--color-accent-glow);
-  }
 }

@@ -31,18 +31,17 @@ export default function Navigation() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
       >
-        <div className="container-main flex items-center justify-between h-16 md:h-20">
-          <a href="#" className="font-display text-xl text-text-primary tracking-tight">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-16 flex items-center justify-between h-16 md:h-20">
+          <a href="#" className="font-[var(--font-syne)] text-xl font-bold text-text-primary tracking-tight">
             P.
           </a>
 
-          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="font-mono text-meta text-text-secondary hover:text-accent transition-colors duration-300"
+                className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-secondary hover:text-accent transition-colors duration-300"
               >
                 {link.label}
               </a>
@@ -51,13 +50,12 @@ export default function Navigation() {
               href="https://github.com/nhprince"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-meta text-text-secondary hover:text-accent transition-colors duration-300"
+              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-secondary hover:text-accent transition-colors duration-300"
             >
               GitHub
             </a>
           </div>
 
-          {/* Mobile menu button */}
           <button
             className="md:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -70,7 +68,6 @@ export default function Navigation() {
         </div>
       </motion.nav>
 
-      {/* Mobile drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -84,7 +81,7 @@ export default function Navigation() {
               <a
                 key={link.label}
                 href={link.href}
-                className="font-display text-h3 text-text-primary hover:text-accent transition-colors"
+                className="font-[var(--font-syne)] text-[clamp(2rem,4vw,4.5rem)] font-bold text-text-primary hover:text-accent transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
@@ -94,7 +91,7 @@ export default function Navigation() {
               href="https://github.com/nhprince"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-meta text-text-secondary hover:text-accent transition-colors"
+              className="font-mono text-[0.625rem] uppercase tracking-[0.25em] text-text-secondary hover:text-accent transition-colors"
             >
               GitHub
             </a>
