@@ -1,34 +1,40 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Only run on client
     if (typeof window === "undefined") return;
 
-    let lenis: ReturnType<typeof import("@studio-freight/lenis").default.prototype.destroy> | null = null;
+    let destroyed = false;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let lenisInstance: any = null;
 
-    import("@studio-freight/lenis").then((LenisModule) => {
-      const Lenis = LenisModule.default;
-      lenis = new Lenis({
+    import("@studio-freight/lenis").then((mod) => {
+      if (destroyed) return;
+      const Lenis = mod.default;
+      lenisInstance = new Lenis({
         duration: 1.2,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: "vertical",
-        gestureOrientation: "vertical",
+        orientation: "vertical" as const,
+        gestureOrientation: "vertical" as const,
         smoothWheel: true,
       });
 
-      function raf(time: number) {
-        lenis?.raf(time);
+      const raf = (time: number) => {
+        if (destroyed) return;
+        lenisInstance?.raf(time);
         requestAnimationFrame(raf);
-      }
+      };
       requestAnimationFrame(raf);
     });
 
     return () => {
-      if (lenis) {
-        lenis.destroy();
+      destroyed = true;
+      try {
+        lenisInstance?.destroy();
+      } catch {
+        // ignore
       }
     };
   }, []);
