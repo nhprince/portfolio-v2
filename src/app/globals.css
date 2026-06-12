@@ -5,6 +5,7 @@
   --color-accent-hover: #FF1A25;
 }
 
+/* ─── Base ─── */
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -18,18 +19,104 @@ body {
   overflow-x: hidden;
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #000000; }
-::-webkit-scrollbar-thumb { background: #222222; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #E50914; }
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #222222;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E50914;
+}
 
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #222222 #000000;
+}
+
+/* ─── Selection ─── */
 ::selection {
   background: #E50914;
   color: #FFFFFF;
 }
 
+/* ─── Keyframe Animations ─── */
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes textReveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(229, 9, 20, 0.2), 0 0 20px rgba(229, 9, 20, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(229, 9, 20, 0.5), 0 0 40px rgba(229, 9, 20, 0.15);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ─── Reduced Motion ─── */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -37,7 +124,142 @@ body {
   }
 }
 
-@keyframes glowPulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
+/* ─── Utility Classes ─── */
+
+/* Gradient text with crimson shades */
+.text-gradient {
+  background: linear-gradient(135deg, #E50914 0%, #FF4D57 50%, #E50914 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism panel */
+.glass {
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Subtle noise texture overlay */
+.noise-bg {
+  position: relative;
+}
+.noise-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+.noise-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Underline reveal on hover */
+.line-reveal {
+  position: relative;
+  display: inline-block;
+}
+.line-reveal::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: #E50914;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.line-reveal:hover::after {
+  width: 100%;
+}
+
+/* Brutalist border accent */
+.brutalist-border {
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ─── Section Divider (Diagonal Clip) ─── */
+.section-divider {
+  width: 100%;
+  height: 80px;
+  background: #0A0A0A;
+  clip-path: polygon(0 0, 100% 0, 100% 20%, 0 100%);
+  margin-top: -1px;
+  margin-bottom: -1px;
+}
+
+/* ─── Animation Utility Shortcuts ─── */
+.animate-glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-border-glow {
+  animation: borderGlow 2.5s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-text-reveal {
+  animation: textReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ─── Focus Styles ─── */
+:focus-visible {
+  outline: 2px solid #E50914;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Link Defaults ─── */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ─── Image Defaults ─── */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ─── Custom Caret ─── */
+html {
+  caret-color: #E50914;
+}
+
+/* ─── Placeholder ─── */
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ─── Horizontal Rule ─── */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
 }
