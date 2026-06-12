@@ -88,7 +88,7 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
+      transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] as const }}
     >
       {/* Giant background number */}
       <span
@@ -214,7 +214,7 @@ function StandardCard({ project }: { project: Project }) {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+      transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] as const }}
       whileHover={{ y: -6 }}
     >
       {/* Image area */}
