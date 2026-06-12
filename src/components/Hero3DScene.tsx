@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Component, type ReactNode } from "react";
 import * as THREE from "three";
 
 function GlassIcosahedron() {
@@ -138,11 +138,11 @@ function ErrorBoundary({
   );
 }
 
-class ErrorCatcher extends React.Component<
-  { children: React.ReactNode; onError: () => void },
+class ErrorCatcher extends Component<
+  { children: ReactNode; onError: () => void },
   { hasError: boolean }
 > {
-  constructor(props: { children: React.ReactNode; onError: () => void }) {
+  constructor(props: { children: ReactNode; onError: () => void }) {
     super(props);
     this.state = { hasError: false };
   }
