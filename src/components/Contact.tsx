@@ -202,7 +202,7 @@ export default function Contact() {
             06 — CONTACT
           </span>
           <h2
-            className='font-display font-extrabold leading-tight tracking-tight text-4xl md:text-5xl lg:text-6xl'
+            className='font-display font-bold leading-tight tracking-tight text-4xl md:text-5xl lg:text-6xl'
             style={{ color: '#0c0a1a' }}
           >
             LET&apos;S BUILD.

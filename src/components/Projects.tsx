@@ -92,7 +92,7 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
     >
       {/* Giant background number */}
       <span
-        className="absolute top-0 font-extrabold leading-none select-none pointer-events-none z-0"
+        className="absolute top-0 font-bold leading-none select-none pointer-events-none z-0"
         style={{
           fontSize: 'clamp(8rem, 18vw, 22rem)',
           color: 'rgba(0,0,0,0.06)',
@@ -131,7 +131,7 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
             {project.tagline}
           </span>
           <h3
-            className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-4"
+            className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4"
             style={{
               color: 'var(--text-primary, #0c0a1a)',
               fontFamily: 'var(--font-display), sans-serif',
@@ -417,7 +417,7 @@ export default function Projects() {
             01 — SELECTED WORK
           </span>
           <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 md:mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6"
             style={{
               color: 'var(--text-primary, #0c0a1a)',
               fontFamily: 'var(--font-display), sans-serif',

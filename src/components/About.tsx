@@ -122,7 +122,7 @@ export default function About() {
             02 — ABOUT
           </span>
           <h2
-            className='font-display font-extrabold leading-tight tracking-tight'
+            className='font-display font-bold leading-tight tracking-tight'
             style={{
               fontSize: 'clamp(2.25rem, 5vw, 3.75rem)',
               color: '#0c0a1a',
@@ -241,7 +241,7 @@ export default function About() {
                 {STATS.map((stat) => (
                   <div key={stat.label} className='text-center'>
                     <div
-                      className='font-display font-extrabold mb-1'
+                      className='font-display font-bold mb-1'
                       style={{
                         fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)',
                         background:

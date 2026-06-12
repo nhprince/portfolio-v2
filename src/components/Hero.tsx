@@ -266,7 +266,7 @@ export default function Hero() {
             {/* Name */}
             <div className='mb-2'>
               <h1
-                className='hero-name-line font-display font-extrabold leading-none tracking-tight'
+                className='hero-name-line font-display font-bold leading-none tracking-tight'
                 style={{
                   fontSize: 'clamp(6rem, 12vw, 16rem)',
                   color: '#0c0a1a',
@@ -277,7 +277,7 @@ export default function Hero() {
                 NH PRINCE
               </h1>
               <h1
-                className='hero-name-line font-display font-extrabold leading-none tracking-tight'
+                className='hero-name-line font-display font-bold leading-none tracking-tight'
                 style={{
                   fontSize: 'clamp(6rem, 12vw, 16rem)',
                   background: 'linear-gradient(135deg, #7c3aed, #a855f7, #ec4899)',

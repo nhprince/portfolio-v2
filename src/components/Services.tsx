@@ -142,7 +142,7 @@ export default function Services() {
           >
             04 — SERVICES
           </span>
-          <h2 className='font-display text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary'>
+          <h2 className='font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary'>
             WHAT I BUILD.
           </h2>
         </div>
@@ -159,7 +159,7 @@ export default function Services() {
             >
               {/* Faint background number */}
               <span
-                className='absolute -top-4 -right-2 font-display text-[10rem] md:text-[12rem] font-extrabold leading-none select-none pointer-events-none z-0'
+                className='absolute -top-4 -right-2 font-display text-[10rem] md:text-[12rem] font-bold leading-none select-none pointer-events-none z-0'
                 style={{ opacity: 0.06, color: '#7c3aed' }}
                 aria-hidden='true'
               >

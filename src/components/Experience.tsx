@@ -172,7 +172,7 @@ export default function Experience() {
           >
             03 — EXPERIENCE
           </span>
-          <h2 className='font-display text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary'>
+          <h2 className='font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary'>
             WHERE I&apos;VE WORKED.
           </h2>
         </div>

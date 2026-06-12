@@ -84,7 +84,7 @@ export default function Blog() {
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent mb-3">
             05 — WRITING
           </p>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary">
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary">
             THOUGHTS.
           </h2>
         </div>

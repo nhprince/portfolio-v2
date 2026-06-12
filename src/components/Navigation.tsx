@@ -94,7 +94,7 @@ export default function Navigation() {
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-1 select-none">
             <span
-              className="text-2xl font-extrabold font-[family-name:var(--font-display)]"
+              className="text-2xl font-bold font-[family-name:var(--font-display)]"
               style={{
                 background:
                   "linear-gradient(135deg, #7c3aed, #a855f7, #ec4899)",
