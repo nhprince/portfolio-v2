@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  transpilePackages: ['three'],
 };
 
 export default nextConfig;
