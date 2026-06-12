@@ -61,7 +61,7 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
+            transition={{ duration: 0.7, ease: 'easeOut' as const }}
           >
             {/* Portrait Card */}
             <div className='relative rounded-2xl overflow-hidden border border-neutral-800 mb-8'>
@@ -110,7 +110,7 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
-            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.15 }}
+            transition={{ duration: 0.7, ease: 'easeOut' as const, delay: 0.15 }}
           >
             {/* Skills */}
             <div className='space-y-6'>
