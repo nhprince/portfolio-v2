@@ -1,0 +1,44 @@
+---
+title: "Building Saturday: The AI That Deploys My Projects"
+tags: ["ai", "automation", "saturday"]
+excerpt: "Saturday is an AI agent that plans, scaffolds, and ships web projects — because I got tired of doing it manually."
+---
+
+# Building Saturday: The AI That Deploys My Projects
+
+I named it Saturday because that's when most of my personal projects happen. Saturday mornings, coffee, no clients, no deadlines — just building. But even Saturdays have tedious parts. Setting up project scaffolding. Configuring deployment. Wiring up GitHub Actions. The same boilerplate, over and over.
+
+So I built an AI that does it for me.
+
+## What Saturday Actually Is
+
+Saturday is an AI agent running on a VPS in Dhaka. You message it on Telegram — type "build me a Next.js blog with Tailwind" — and it plans the architecture, scaffolds the codebase, configures Cloudflare Pages deployment, pushes to GitHub, and messages you back with a live URL. End to end. No SSH into a server. No clicking through dashboard settings. Just a conversation.
+
+Under the hood, it runs on Hermes Agent with a custom skill library. I've built 2,700+ skills across 11 domains — development, design, DevOps, research, automation. When Saturday gets a request, it picks the right skills, executes them in sequence, and reports back.
+
+## The Architecture
+
+Three layers:
+
+1. **Telegram gateway** — You talk to Saturday through WhatsApp or Telegram. Natural language, no commands to memorize.
+
+2. **Agent loop** — Hermes Agent handles reasoning. It breaks down "build a blog" into: scaffold Next.js, install dependencies, create layout components, set up MDX, configure Cloudflare Pages, deploy. Each step is a tool call.
+
+3. **Execution layer** — Shell commands, file writes, API calls, GitHub pushes. Saturday has access to the full development environment, but scoped to project directories. It can't touch anything outside its workspace.
+
+## What It Can Do Right Now
+
+- **Scaffold projects** — Next.js, Astro, SvelteKit, Flask, Django. With or without TypeScript.
+- **Deploy to Cloudflare** — Pages for static, Workers for serverless. Sets up custom domains, configures DNS, provisions SSL.
+- **Write code** — Full components, API routes, database schemas. Uses OpenRouter for code generation with a model rotation system.
+- **Clone and deploy existing projects** — Give it a GitHub repo, it clones, builds, and deploys.
+- **Run maintenance** — Update dependencies, fix broken builds, rotate API keys.
+- **Write content** — Blog posts, documentation, commit messages.
+
+## Why I Built This
+
+Every developer automates their own workflow eventually. This is my version. But honestly, the deeper reason is that I want to spend my time on the interesting parts — the architecture decisions, the design, the problem-solving. Not on `npm install` and Cloudflare dashboard navigation.
+
+Saturday handles the grind so I can focus on the craft. And if it ever goes down, I just message it on Telegram and tell it to fix itself. Which it does.
+
+That's the point. Not to replace developers — to remove the parts of development that nobody actually enjoys.

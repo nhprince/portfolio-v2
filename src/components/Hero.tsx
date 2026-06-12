@@ -1,169 +1,468 @@
-"use client";
+'use client'
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
+
+const Hero3DScene = dynamic(() => import('./Hero3DScene'), { ssr: false })
+
+const TECH_STACK = [
+  'TypeScript',
+  'React',
+  'Next.js',
+  'Node.js',
+  'GraphQL',
+  'PostgreSQL',
+  'Docker',
+  'AWS',
+  'TailwindCSS',
+  'Prisma',
+  'Redis',
+  'tRPC',
+  'TypeScript',
+  'React',
+  'Next.js',
+  'Node.js',
+  'GraphQL',
+  'PostgreSQL',
+  'Docker',
+  'AWS',
+  'TailwindCSS',
+  'Prisma',
+  'Redis',
+  'tRPC',
+]
 
 export default function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [gsapReady, setGsapReady] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null)
+  const orbVioletRef = useRef<HTMLDivElement>(null)
+  const orbPinkRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const glowY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
-  // Dynamic GSAP import + ScrollTrigger registration
   useEffect(() => {
-    import("gsap").then((gsapModule) => {
-      const gsap = gsapModule.default;
-      import("gsap/ScrollTrigger").then((ScrollTriggerModule) => {
-        gsap.registerPlugin(ScrollTriggerModule.ScrollTrigger);
-        setGsapReady(true);
-      });
-    });
-  }, []);
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
-  // Mouse tracking
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
-      const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
-      setMousePos({ x, y });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+    let ctx: gsap.Context | undefined
 
-  // GSAP mouse parallax on glow (x30) and text (x15)
+    if (typeof window === 'undefined') return
+
+    import('gsap').then((gsapModule) => {
+      const gsapLib = gsapModule.gsap || gsapModule.default
+      const gsapTyped = gsapLib as typeof import('gsap').default
+
+      ctx = gsapTyped.context(() => {
+        // Entrance animations
+        const tl = gsapTyped.timeline({ defaults: { ease: 'power3.out' } })
+
+        tl.fromTo(
+          contentRef.current,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 1.2 }
+        )
+          .fromTo(
+            '.hero-eyebrow',
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.6 },
+            '-=0.8'
+          )
+          .fromTo(
+            '.hero-name-line',
+            { opacity: 0, y: 60, skewY: 3 },
+            { opacity: 1, y: 0, skewY: 0, duration: 0.8, stagger: 0.15 },
+            '-=0.6'
+          )
+          .fromTo(
+            '.hero-subtitle',
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.6 },
+            '-=0.4'
+          )
+          .fromTo(
+            '.hero-cta',
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
+            '-=0.3'
+          )
+          .fromTo(
+            '.hero-decor',
+            { opacity: 0, scale: 0.9 },
+            { opacity: 1, scale: 1, duration: 0.6, stagger: 0.1 },
+            '-=0.3'
+          )
+          .fromTo(
+            '.scroll-indicator',
+            { opacity: 0, y: -10 },
+            { opacity: 1, y: 0, duration: 0.5 },
+            '-=0.2'
+          )
+
+        // Scroll indicator bounce
+        gsapTyped.to('.scroll-wheel', {
+          y: 6,
+          duration: 1,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+        })
+
+        // Scroll indicator fade out on scroll
+        if (sectionRef.current) {
+          gsapTyped.to('.scroll-indicator', {
+            opacity: 0,
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 10%',
+              end: 'top -10%',
+              scrub: true,
+            },
+          })
+        }
+      }, sectionRef)
+    })
+
+    return () => {
+      ctx?.revert()
+    }
+  }, [])
+
+  // Mouse parallax for orbs
   useEffect(() => {
-    if (!gsapReady || !glowRef.current || !textRef.current) return;
-    import("gsap").then((gsapModule) => {
-      const gsap = gsapModule.default;
-      gsap.to(glowRef.current, {
-        x: mousePos.x * -30,
-        y: mousePos.y * -30,
-        duration: 1.5,
-        ease: "power2.out",
-      });
-      gsap.to(textRef.current, {
-        x: mousePos.x * -15,
-        y: mousePos.y * -15,
-        duration: 1.5,
-        ease: "power2.out",
-      });
-    });
-  }, [mousePos, gsapReady]);
+    let ctx: gsap.Context | undefined
+
+    if (typeof window === 'undefined') return
+
+    import('gsap').then((gsapModule) => {
+      const gsapLib = gsapModule.gsap || gsapModule.default
+      const gsapTyped = gsapLib as typeof import('gsap').default
+
+      ctx = gsapTyped.context(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+          const { innerWidth, innerHeight } = window
+          const xRatio = (e.clientX / innerWidth - 0.5) * 2
+          const yRatio = (e.clientY / innerHeight - 0.5) * 2
+
+          if (orbVioletRef.current) {
+            gsapTyped.to(orbVioletRef.current, {
+              x: xRatio * 80,
+              y: yRatio * 50,
+              duration: 0.8,
+              ease: 'power2.out',
+            })
+          }
+
+          if (orbPinkRef.current) {
+            gsapTyped.to(orbPinkRef.current, {
+              x: xRatio * -60,
+              y: yRatio * -40,
+              duration: 1,
+              ease: 'power2.out',
+            })
+          }
+        }
+
+        window.addEventListener('mousemove', handleMouseMove)
+
+        return () => {
+          window.removeEventListener('mousemove', handleMouseMove)
+        }
+      }, orbVioletRef)
+    })
+
+    return () => {
+      ctx?.revert()
+    }
+  }, [])
+
+  const glassPill: React.CSSProperties = {
+    background: 'rgba(255, 255, 255, 0.55)',
+    backdropFilter: 'blur(24px)',
+    WebkitBackdropFilter: 'blur(24px)',
+    border: '1px solid rgba(255, 255, 255, 0.75)',
+    boxShadow: '0 8px 32px rgba(100, 80, 200, 0.12)',
+    borderRadius: '9999px',
+  }
+
+  const gradientBg: React.CSSProperties = {
+    background: 'linear-gradient(135deg, #7c3aed, #a855f7, #ec4899)',
+  }
 
   return (
     <section
-      ref={containerRef}
-      className="relative w-full h-screen flex items-center justify-center overflow-hidden"
-      style={{ backgroundColor: "#0A0A0A" }}
+      ref={sectionRef}
+      className='relative h-screen w-full overflow-hidden bg-[#f0edf8]'
+      style={{ zIndex: 1 }}
     >
-      {/* Layer 1 (z-10): Crimson radial glow with GSAP parallax */}
-      <motion.div
-        ref={glowRef}
-        className="absolute z-10 w-[600px] md:w-[800px] h-[600px] md:h-[800px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(229,9,20,0.4) 0%, transparent 70%)",
-          y: glowY,
-          animation: "glowPulse 3s ease-in-out infinite",
-        }}
-      />
-
-      {/* Layer 2 (z-20): Text content */}
-      <motion.div
-        ref={textRef}
-        className="relative z-20 text-center px-4"
-        style={{ y: textY, opacity }}
-      >
-        {/* Metadata */}
-        <motion.p
-          className="text-[10px] uppercase tracking-[0.3em] text-neutral-500 font-mono mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          FULL-STACK DEVELOPER — DHAKA, BANGLADESH
-        </motion.p>
-
-        {/* Display name */}
-        <motion.h1
-          className="font-black text-white leading-none"
+      {/* ─── Layer 1: Background Orbs (z-0) ─── */}
+      <div className='absolute inset-0 z-0' aria-hidden='true'>
+        {/* Violet orb - top-left area */}
+        <div
+          ref={orbVioletRef}
+          className='absolute'
           style={{
-            fontFamily: "var(--font-syne), sans-serif",
-            fontSize: "clamp(4rem, 12vw, 14rem)",
-            textShadow: "0 0 80px rgba(229,9,20,0.3)",
+            width: 'min(50vw, 700px)',
+            height: 'min(50vw, 700px)',
+            top: '-10%',
+            left: '5%',
+            background:
+              'radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, rgba(168, 85, 247, 0.15) 50%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(60px)',
+            willChange: 'transform',
           }}
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        >
-          PRINCE
-        </motion.h1>
+        />
+        {/* Pink orb - center-right area */}
+        <div
+          ref={orbPinkRef}
+          className='absolute'
+          style={{
+            width: 'min(45vw, 600px)',
+            height: 'min(45vw, 600px)',
+            top: '30%',
+            right: '5%',
+            background:
+              'radial-gradient(circle, rgba(236, 72, 153, 0.35) 0%, rgba(168, 85, 247, 0.15) 50%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(60px)',
+            willChange: 'transform',
+          }}
+        />
+      </div>
 
-        {/* Subtitle */}
-        <motion.p
-          className="text-neutral-400 max-w-xl mx-auto mt-6 leading-relaxed"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          Building modern web applications with React, TypeScript, Node.js &
-          Python. Turning complex problems into elegant solutions.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          className="flex gap-4 justify-center mt-10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
-        >
-          <a
-            href="#projects"
-            className="px-6 py-3 text-white text-[10px] uppercase tracking-[0.2em] rounded-full transition-colors duration-300 font-mono font-semibold"
-            style={{ backgroundColor: "#E50914" }}
-          >
-            VIEW MY WORK
-          </a>
-          <a
-            href="#contact"
-            className="px-6 py-3 border border-neutral-600 text-white text-[10px] uppercase tracking-[0.2em] rounded-full hover:border-red-600 transition-colors duration-300 font-mono font-semibold"
-          >
-            GET IN TOUCH
-          </a>
-        </motion.div>
-      </motion.div>
-
-      {/* Layer 3 (z-30): Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+      {/* ─── Layer 2: Text Content (z-10) ─── */}
+      <div
+        ref={contentRef}
+        className='absolute inset-0 z-10 flex items-center'
       >
-        <motion.div
-          className="w-6 h-10 border border-neutral-700 rounded-full flex justify-center"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+        <div
+          className='w-full px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24'
+          style={{ maxWidth: 'var(--container-max, 1560px)', margin: '0 auto' }}
         >
-          <motion.div
-            className="w-1.5 h-1.5 rounded-full mt-2"
-            style={{ backgroundColor: "#E50914" }}
+          <div className='w-full md:w-[60%]'>
+            {/* Eyebrow Badge */}
+            <div
+              className='hero-eyebrow inline-flex items-center gap-2 px-4 py-2 mb-8'
+              style={{
+                ...glassPill,
+                opacity: 0,
+              }}
+            >
+              <span
+                className='w-2 h-2 rounded-full animate-pulse flex-shrink-0'
+                style={{ backgroundColor: '#22c55e' }}
+              />
+              <span
+                className='font-mono text-xs font-medium tracking-widest uppercase'
+                style={{ color: '#22c55e', fontSize: 'var(--text-xs, 0.75rem)' }}
+              >
+                ◉ Available for Work
+              </span>
+            </div>
+
+            {/* Name */}
+            <div className='mb-2'>
+              <h1
+                className='hero-name-line font-display font-extrabold leading-none tracking-tight'
+                style={{
+                  fontSize: 'clamp(6rem, 12vw, 16rem)',
+                  color: '#0c0a1a',
+                  lineHeight: '0.9',
+                  opacity: 0,
+                }}
+              >
+                NH PRINCE
+              </h1>
+              <h1
+                className='hero-name-line font-display font-extrabold leading-none tracking-tight'
+                style={{
+                  fontSize: 'clamp(6rem, 12vw, 16rem)',
+                  background: 'linear-gradient(135deg, #7c3aed, #a855f7, #ec4899)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  lineHeight: '0.9',
+                  opacity: 0,
+                }}
+              >
+                PRODHAN
+              </h1>
+            </div>
+
+            {/* Subtitle */}
+            <div className='mb-8'>
+              <span
+                hero-subtitle
+                className='hero-subtitle font-display font-medium tracking-wide'
+                style={{
+                  fontSize: 'var(--text-xl, 1.25rem)',
+                  color: '#4a4060',
+                  opacity: 0,
+                }}
+              >
+                Full-Stack Developer
+              </span>
+            </div>
+
+            {/* CTAs */}
+            <div className='flex flex-wrap gap-4'>
+              <a
+                href='#projects'
+                className='hero-cta inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-white transition-transform hover:scale-105 active:scale-95'
+                style={{
+                  ...gradientBg,
+                  boxShadow: '0 8px 32px rgba(124, 58, 237, 0.35)',
+                  fontSize: 'var(--text-base, 1rem)',
+                  opacity: 0,
+                }}
+              >
+                View Work →
+              </a>
+              <a
+                href='#contact'
+                className='hero-cta inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold transition-transform hover:scale-105 active:scale-95'
+                style={{
+                  background: 'rgba(255, 255, 255, 0.55)',
+                  backdropFilter: 'blur(24px)',
+                  WebkitBackdropFilter: 'blur(24px)',
+                  border: '1px solid rgba(124, 58, 237, 0.3)',
+                  color: '#0c0a1a',
+                  boxShadow: '0 8px 32px rgba(100, 80, 200, 0.12)',
+                  fontSize: 'var(--text-base, 1rem)',
+                  opacity: 0,
+                }}
+              >
+                Contact Me
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Layer 3: 3D Scene (z-10, right side) ─── */}
+      {!isMobile && (
+        <div className='absolute inset-0 z-10 pointer-events-none md:flex'>
+          <div
+            className='ml-auto pointer-events-auto'
+            style={{
+              width: '40%',
+              height: '100%',
+            }}
+          >
+            <Hero3DScene />
+          </div>
+        </div>
+      )}
+
+      {/* ─── Decorative Glass Cards ─── */}
+      {/* Top-left location badge */}
+      <div
+        className='hero-decor absolute z-20 hidden md:flex items-center gap-2 px-4 py-2'
+        style={{
+          ...glassPill,
+          top: '12%',
+          left: '8%',
+          opacity: 0,
+        }}
+      >
+        <svg
+          className='w-4 h-4 flex-shrink-0'
+          fill='none'
+          viewBox='0 0 24 24'
+          stroke='currentColor'
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'
           />
-        </motion.div>
-      </motion.div>
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'
+          />
+        </svg>
+        <span
+          className='font-mono text-xs font-medium tracking-wider whitespace-nowrap'
+          style={{ color: '#4a4060' }}
+        >
+          BASED IN DHAKA, BD
+        </span>
+      </div>
+
+      {/* Bottom-right decor badge */}
+      <div
+        className='hero-decor absolute z-20 hidden md:flex items-center gap-2 px-4 py-2'
+        style={{
+          ...glassPill,
+          bottom: '25%',
+          right: '38%',
+          opacity: 0,
+        }}
+      >
+        <span
+          className='font-mono text-xs font-medium tracking-wider whitespace-nowrap'
+          style={{ color: '#4a4060' }}
+        >
+          Building Digital Experiences
+        </span>
+      </div>
+
+      {/* ─── Scroll Indicator ─── */}
+      <div
+        className='scroll-indicator absolute bottom-8 left-1/2 z-20 flex flex-col items-center gap-2 -translate-x-1/2'
+      >
+        <div
+          className='flex flex-col items-center justify-center w-6 h-10 rounded-full border-2'
+          style={{ borderColor: 'rgba(100, 80, 200, 0.3)' }}
+        >
+          <div
+            className='scroll-wheel w-1.5 h-3 rounded-full'
+            style={{
+              background: 'linear-gradient(180deg, #7c3aed, #ec4899)',
+            }}
+          />
+        </div>
+        <span
+          className='font-mono text-[10px] tracking-widest uppercase'
+          style={{ color: '#9b90b8' }}
+        >
+          Scroll
+        </span>
+      </div>
+
+      {/* ─── Tech Marquee ─── */}
+      <div
+        className='absolute bottom-0 left-0 right-0 z-20 overflow-hidden'
+        style={{
+          background: 'rgba(255, 255, 255, 0.35)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.6)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.6)',
+          padding: '10px 0',
+        }}
+      >
+        <div className='flex animate-scroll-x whitespace-nowrap will-change-transform'>
+          {TECH_STACK.map((tech, i) => (
+            <span
+              key={i}
+              className='inline-flex items-center mx-6 font-mono text-sm font-medium tracking-wider'
+              style={{ color: '#4a4060' }}
+            >
+              {tech}
+              <span
+                className='ml-6 w-1.5 h-1.5 rounded-full opacity-40'
+                style={{ background: 'linear-gradient(135deg, #7c3aed, #ec4899)' }}
+              />
+            </span>
+          ))}
+        </div>
+      </div>
     </section>
-  );
+  )
 }

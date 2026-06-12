@@ -1,0 +1,36 @@
+---
+title: "How I Built a Working POS System at 16"
+tags: ["personal", "backend", "nodejs"]
+excerpt: "The story of building Lenden — a full point-of-sale system used by real shops — before I had a driver's license."
+---
+
+# How I Built a Working POS System at 16
+
+I was sixteen when a shop owner in my neighborhood asked if I could build him something to track his inventory. He was using a notebook. A physical notebook — writing down every sale by hand, counting stock every Friday evening, losing receipts under the counter.
+
+I said yes before I knew how.
+
+## The First Version Was Ugly
+
+The first iteration was a single HTML page with jQuery and a MySQL database. It could add products, process a sale, and print a receipt. That was it. No user roles, no reports, no dashboard. But it worked, and the shop owner used it every day for three months.
+
+That three months taught me more than any tutorial. I watched him use it. I saw where he hesitated, where he clicked the wrong button, where he asked his son for help. Real usage is the best code review.
+
+## Building the Real Thing
+
+Version two was a complete rewrite. React on the front, Express.js on the back, proper MySQL schema with foreign keys and transactions. I added:
+
+- **Multi-branch support** — The owner expanded to a second location. The system needed to handle both.
+- **Automated reports** — Every day at midnight, a cron job calculates total sales, top products, and low-stock items. It emails a PDF to the shop owner. He wakes up knowing his numbers.
+- **Receipt generation** — PDF receipts with the shop's logo, itemized list, tax calculation. Printed on a thermal printer connected to the local network.
+- **Role-based admin** — Owner, manager, cashier. Each sees only what they need.
+
+The automation layer was the part I'm most proud of. Node-cron jobs that run without anyone touching anything. PDF generation with pdfkit. Automated low-stock alerts sent via email. The system doesn't just record — it actively helps run the business.
+
+## What It Taught Me
+
+Ship fast. Version one was terrible, but it was real and it was being used. Every feature in version two came from watching a real person interact with version one.
+
+I didn't have a mentor. I had a shop owner who needed help and a problem I couldn't stop thinking about. That's been the pattern for every project since — Lenden, Stuck Studio, the Smart Library System, all of it.
+
+If you're sixteen and reading this: you don't need permission to build something real. Find someone with a problem and start typing.

@@ -1,0 +1,39 @@
+---
+title: "What Nobody Tells You About Glassmorphism"
+tags: ["css", "design", "ui-ux"]
+excerpt: "Everyone uses glassmorphism. Almost nobody uses it well. Here's what I learned building interfaces with it."
+---
+
+# What Nobody Tells You About Glassmorphism
+
+Glassmorphism is everywhere now. Frosted glass cards, blurred backgrounds, translucent navigation bars — every design system has it. I love it. I also think most people get it completely wrong.
+
+## The Saturation Problem
+
+The issue isn't glassmorphism itself. It's that everyone copies the same pattern: white card, 20% opacity, backdrop blur 16px, thin white border. It looks fine in a Figma mockup. In production, on a real website with real content, it turns into visual noise.
+
+I learned this building the MINIMALIST Gaming design tool. The entire interface is glass-based — panels, toolbars, modals, all floating over a canvas. When every surface is glass, nothing stands out. You've designed opacity everywhere, which means you've designed emphasis nowhere.
+
+## The Legibility Trap
+
+Here's the thing nobody mentions: blur kills text legibility. Not obviously — not enough that it fails an accessibility check. But enough that your users' eyes work harder than they should. Enough that they leave the page a little sooner than they would have.
+
+The fix is simple but it requires discipline: **limit glass to container surfaces, never blur text directly.** Put your text on an opaque or near-opaque layer inside the glass card. The glass frames the content — it doesn't compete with it.
+
+## What Works
+
+After three major projects using glassmorphism, here's what I've found actually works:
+
+1. **Glass for navigation and floating UI, not for content.** Your navbar can be glass. Your project cards should not be.
+
+2. **Stronger borders, not stronger blur.** A slightly more opaque border (white at 75-80%) does more for perceived depth than increasing blur from 20px to 40px.
+
+3. **One glass layer deep.** Card inside glass container inside glass modal? Pick one. Glass is a seasoning, not the main course.
+
+4. **Always test on the actual background.** Glass that looks great on your gradient test page will look completely different on a real photography background or a complex illustration.
+
+## The Real Lesson
+
+Glassmorphism isn't a design system. It's an effect. Like drop shadows, like border radius, like any other visual flourish — it serves the content, never the other way around. The best glassmorphism I've seen is the kind you don't consciously notice. It just makes everything feel a little more intentional, a little more considered.
+
+Build for the shop owner with a notebook. Not for your Dribbble feed.
