@@ -1,8 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, MeshTransmissionMaterial } from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { Environment } from "@react-three/drei";
 import { useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 
@@ -17,22 +16,15 @@ function GlassIcosahedron() {
   return (
     <mesh ref={meshRef} scale={1.8}>
       <icosahedronGeometry args={[1, 1]} />
-      <MeshTransmissionMaterial
-        backside
-        samples={16}
-        resolution={256}
-        transmission={0.95}
-        roughness={0.05}
+      <meshPhysicalMaterial
+        transmission={0.9}
         thickness={0.5}
+        roughness={0.05}
         ior={1.5}
-        chromaticAberration={0.06}
-        anisotropy={0.3}
-        distortion={0.1}
-        distortionScale={0.2}
-        temporalDistortion={0.1}
-        clearcoat={1}
-        clearcoatRoughness={0}
-        color="#ffffff"
+        color="#a855f7"
+        envMapIntensity={1}
+        transparent
+        opacity={0.8}
       />
     </mesh>
   );
@@ -47,19 +39,6 @@ function Scene() {
       <GlassIcosahedron />
       <Environment preset="city" />
     </>
-  );
-}
-
-function BloomPostprocessing() {
-  return (
-    <EffectComposer>
-      <Bloom
-        luminanceThreshold={0.2}
-        luminanceSmoothing={0.9}
-        intensity={0.8}
-        mipmapBlur
-      />
-    </EffectComposer>
   );
 }
 
@@ -88,7 +67,7 @@ function GradientOrbFallback() {
           maxHeight: 400,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.25) 0%, rgba(120,180,255,0.12) 30%, rgba(80,100,255,0.08) 55%, transparent 75%)",
+            "radial-gradient(circle at 35% 35%, rgba(124,58,237,0.3) 0%, rgba(236,72,153,0.2) 40%, transparent 70%)",
           filter: "blur(2px)",
         }}
       />
@@ -98,6 +77,7 @@ function GradientOrbFallback() {
 
 export default function HeroScene() {
   const [isMobile, setIsMobile] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(isMobileDevice());
@@ -106,7 +86,7 @@ export default function HeroScene() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  if (isMobile) {
+  if (isMobile || hasError) {
     return (
       <div style={{ position: "absolute", inset: 0 }}>
         <GradientOrbFallback />
@@ -116,14 +96,67 @@ export default function HeroScene() {
 
   return (
     <div style={{ position: "absolute", inset: 0 }}>
-      <Canvas
-        camera={{ position: [0, 0, 5], fov: 45 }}
-        frameloop="demand"
-        gl={{ antialias: true, alpha: true }}
-      >
-        <Scene />
-        <BloomPostprocessing />
-      </Canvas>
+      <ErrorBoundary onError={() => setHasError(true)}>
+        <Canvas
+          camera={{ position: [0, 0, 5], fov: 45 }}
+          frameloop="demand"
+          gl={{ antialias: true, alpha: true }}
+        >
+          <Scene />
+        </Canvas>
+      </ErrorBoundary>
     </div>
   );
+}
+
+// Simple error boundary for the 3D scene
+function ErrorBoundary({
+  children,
+  onError,
+}: {
+  children: React.ReactNode;
+  onError: () => void;
+}) {
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    if (hasError) onError();
+  }, [hasError, onError]);
+
+  if (hasError) {
+    return (
+      <div style={{ position: "absolute", inset: 0 }}>
+        <GradientOrbFallback />
+      </div>
+    );
+  }
+
+  return (
+    <ErrorCatcher onError={() => setHasError(true)}>
+      {children}
+    </ErrorCatcher>
+  );
+}
+
+class ErrorCatcher extends React.Component<
+  { children: React.ReactNode; onError: () => void },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode; onError: () => void }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch() {
+    this.props.onError();
+  }
+
+  render() {
+    if (this.state.hasError) return null;
+    return this.props.children;
+  }
 }
