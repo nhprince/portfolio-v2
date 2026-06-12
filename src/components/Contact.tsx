@@ -424,7 +424,7 @@ export default function Contact() {
                     className='w-full px-4 py-3 text-sm'
                     style={{
                       ...GLASS_INPUT,
-                      borderColor: errors.name ? '#ef4444' : GLASS_INPUT.border,
+                      borderColor: errors.name ? '#ef4444' : 'rgba(255, 255, 255, 0.6)',
                       boxShadow: errors.name ? '0 0 0 2px rgba(239, 68, 68, 0.15)' : 'none',
                     }}
                   />
@@ -453,7 +453,7 @@ export default function Contact() {
                     className='w-full px-4 py-3 text-sm'
                     style={{
                       ...GLASS_INPUT,
-                      borderColor: errors.email ? '#ef4444' : GLASS_INPUT.border,
+                      borderColor: errors.email ? '#ef4444' : 'rgba(255, 255, 255, 0.6)',
                       boxShadow: errors.email ? '0 0 0 2px rgba(239, 68, 68, 0.15)' : 'none',
                     }}
                   />
@@ -480,7 +480,7 @@ export default function Contact() {
                     className='w-full px-4 py-3 text-sm appearance-none cursor-pointer'
                     style={{
                       ...GLASS_INPUT,
-                      borderColor: errors.type ? '#ef4444' : GLASS_INPUT.border,
+                      borderColor: errors.type ? '#ef4444' : 'rgba(255, 255, 255, 0.6)',
                       boxShadow: errors.type ? '0 0 0 2px rgba(239, 68, 68, 0.15)' : 'none',
                       backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237c3aed' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
                       backgroundRepeat: 'no-repeat',
@@ -517,7 +517,7 @@ export default function Contact() {
                     className='w-full px-4 py-3 text-sm resize-y'
                     style={{
                       ...GLASS_INPUT,
-                      borderColor: errors.message ? '#ef4444' : GLASS_INPUT.border,
+                      borderColor: errors.message ? '#ef4444' : 'rgba(255, 255, 255, 0.6)',
                       boxShadow: errors.message ? '0 0 0 2px rgba(239, 68, 68, 0.15)' : 'none',
                       minHeight: '120px',
                     }}
