@@ -1,19 +1,24 @@
 export default function Footer() {
   return (
-    <footer className="py-8" style={{ borderTop: "1px solid rgba(124, 58, 237, 0.1)", background: "rgba(124, 58, 237, 0.02)" }}>
-      <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "0 var(--container-pad)" }}>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="font-[family-name:var(--font-display)] text-xl tracking-wider" style={{ color: "var(--text-primary)" }}>
-            <span className="text-gradient">P</span>.
-          </span>
-          <p className="text-sm text-center" style={{ color: "var(--text-muted)" }}>© {new Date().getFullYear()} NH Prince Prodhan. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <a href="https://github.com/nhprince" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--accent-from)]" style={{ color: "var(--text-muted)" }} aria-label="GitHub">⟠</a>
-            <a href="https://www.linkedin.com/in/nh-prince-prodhan-a1b46a399" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#0077b5]" style={{ color: "var(--text-muted)" }} aria-label="LinkedIn">in</a>
-            <a href="https://t.me/nhprince" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#0088cc]" style={{ color: "var(--text-muted)" }} aria-label="Telegram">✈</a>
+    <footer className="bg-[#0c0a1a] py-12">
+      {/* Gradient accent line */}
+      <div className="h-[2px] w-full mb-12" style={{ background: 'linear-gradient(90deg, #7c3aed, #a855f7, #ec4899)' }} />
+      <div className="max-w-[1560px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-mono">
+            © {new Date().getFullYear()} NH Prince Prodhan
+          </p>
+          <div className="flex items-center gap-8">
+            <a href="#projects" className="text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-white/80 transition-colors font-mono">Work</a>
+            <a href="#about" className="text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-white/80 transition-colors font-mono">About</a>
+            <a href="#blog" className="text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-white/80 transition-colors font-mono">Blog</a>
+            <a href="#contact" className="text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-white/80 transition-colors font-mono">Contact</a>
           </div>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-mono">
+            Made with Next.js & Cloudflare
+          </p>
         </div>
       </div>
     </footer>
-  );
+  )
 }
