@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Easing } from "framer-motion";
 
 const NAV_LINKS = [
   { label: "WORK", href: "#projects" },
@@ -14,7 +14,7 @@ const navContainer = {
   hidden: { y: "-100%" },
   visible: {
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const as const },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as Easing },
   },
 };
 
@@ -35,7 +35,7 @@ const mobileLinkItem = {
   visible: {
     y: 0,
     opacity: 1,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const as const },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as Easing },
   },
   exit: {
     y: 20,
@@ -160,7 +160,7 @@ export default function Navigation() {
                   ? { rotate: 45, y: 6, width: 20 }
                   : { rotate: 0, y: -5, width: 20 }
               }
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as Easing }}
               className="block h-[2px] rounded-full"
               style={{ background: "var(--text-primary)" }}
             />
@@ -182,7 +182,7 @@ export default function Navigation() {
                   ? { rotate: -45, y: -6, width: 20 }
                   : { rotate: 0, y: 5, width: 20 }
               }
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as Easing }}
               className="block h-[2px] rounded-full"
               style={{ background: "var(--text-primary)" }}
             />
