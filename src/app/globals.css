@@ -1,23 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #0A0A0A;
-  --color-bg-deep: #000000;
-  --color-surface: #111111;
-  --color-surface-elevated: #1A1A1A;
-  --color-border: #222222;
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #A0A0A0;
-  --color-text-muted: #666666;
   --color-accent: #E50914;
-  --color-accent-glow: rgba(229, 9, 20, 0.2);
   --color-accent-hover: #FF1A25;
-
-  --font-display: var(--font-syne), sans-serif;
-  --font-body: var(--font-space-grotesk), sans-serif;
-  --font-mono: var(--font-jetbrains-mono), monospace;
-
-  --text-meta: 0.625rem;
 }
 
 * {
@@ -30,14 +15,6 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-html.lenis, html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
 }
 
 body {
@@ -66,6 +43,7 @@ body {
   }
 }
 
-@media (min-width: 1600px) { html { font-size: 18px; } }
-@media (min-width: 2560px) { html { font-size: 20px; } }
-@media (min-width: 3840px) { html { font-size: 24px; } }
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}

@@ -57,12 +57,13 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-[#0A0A0A]"
+      className="relative w-full h-screen flex items-center justify-center overflow-hidden"
+      style={{ backgroundColor: "#0A0A0A" }}
     >
       {/* Layer 1: Crimson radial glow */}
       <motion.div
         ref={glowRef}
-        className="absolute z-[1] w-[600px] md:w-[800px] h-[600px] md:h-[800px] rounded-full opacity-30"
+        className="absolute z-10 w-[600px] md:w-[800px] h-[600px] md:h-[800px] rounded-full opacity-30"
         style={{
           background: "radial-gradient(circle, rgba(229,9,20,0.4) 0%, transparent 70%)",
           y: glowY,
@@ -73,11 +74,11 @@ export default function Hero() {
       {/* Layer 2: Massive display text */}
       <motion.div
         ref={textRef}
-        className="relative z-[2] text-center px-4"
+        className="relative z-20 text-center px-4"
         style={{ y: textY, opacity }}
       >
         <motion.p
-          className="text-[10px] uppercase tracking-[0.25em] text-[#A0A0A0] mb-4 font-mono"
+          className="text-xs uppercase tracking-widest text-neutral-400 mb-4 font-mono"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -86,8 +87,8 @@ export default function Hero() {
         </motion.p>
 
         <motion.h1
-          className="text-[clamp(4rem,10vw,12rem)] font-extrabold text-white tracking-tight"
-          style={{ fontFamily: "var(--font-syne), sans-serif" }}
+          className="text-7xl md:text-8xl lg:text-9xl font-black text-white tracking-tight"
+          style={{ fontFamily: "var(--font-syne), sans-serif", fontSize: "clamp(4rem, 10vw, 12rem)" }}
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -96,7 +97,7 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p
-          className="text-base md:text-lg text-[#A0A0A0] max-w-xl mx-auto mt-6 leading-relaxed"
+          className="text-base md:text-lg text-neutral-400 max-w-xl mx-auto mt-6 leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
@@ -113,13 +114,14 @@ export default function Hero() {
         >
           <a
             href="#projects"
-            className="px-6 py-3 bg-[#E50914] text-white text-[10px] uppercase tracking-[0.25em] rounded-full hover:bg-[#FF1A25] transition-colors duration-300 font-mono"
+            className="px-6 py-3 text-white text-xs uppercase tracking-widest rounded-full transition-colors duration-300 font-mono font-semibold"
+            style={{ backgroundColor: "#E50914" }}
           >
             View My Work
           </a>
           <a
             href="#contact"
-            className="px-6 py-3 border border-[#222222] text-white text-[10px] uppercase tracking-[0.25em] rounded-full hover:border-[#E50914] transition-colors duration-300 font-mono"
+            className="px-6 py-3 border border-neutral-700 text-white text-xs uppercase tracking-widest rounded-full hover:border-red-600 transition-colors duration-300 font-mono"
           >
             Get In Touch
           </a>
@@ -128,26 +130,19 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[4]"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
       >
         <motion.div
-          className="w-6 h-10 border-2 border-[#222222] rounded-full flex justify-center"
+          className="w-6 h-10 border-2 border-neutral-700 rounded-full flex justify-center"
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <motion.div className="w-1 h-2 bg-[#E50914] rounded-full mt-2" />
+          <motion.div className="w-1 h-2 rounded-full mt-2" style={{ backgroundColor: "#E50914" }} />
         </motion.div>
       </motion.div>
-
-      <style jsx>{`
-        @keyframes glowPulse {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.6; }
-        }
-      `}</style>
     </section>
   );
 }

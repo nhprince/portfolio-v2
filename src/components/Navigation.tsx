@@ -33,35 +33,22 @@ export default function Navigation() {
         transition={{ duration: 0.6, delay: 0.5 }}
       >
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-16 flex items-center justify-between h-16 md:h-20">
-          <a href="#" className="text-xl font-extrabold text-white tracking-tight" style={{ fontFamily: "var(--font-syne), sans-serif" }}>
+          <a href="#" className="text-xl font-black text-white tracking-tight" style={{ fontFamily: "var(--font-syne), sans-serif" }}>
             P.
           </a>
 
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-[10px] uppercase tracking-[0.25em] text-[#A0A0A0] hover:text-[#E50914] transition-colors duration-300 font-mono"
-              >
+              <a key={link.label} href={link.href} className="text-xs uppercase tracking-widest text-neutral-400 hover:text-red-600 transition-colors duration-300 font-mono">
                 {link.label}
               </a>
             ))}
-            <a
-              href="https://github.com/nhprince"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[10px] uppercase tracking-[0.25em] text-[#A0A0A0] hover:text-[#E50914] transition-colors duration-300 font-mono"
-            >
+            <a href="https://github.com/nhprince" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-widest text-neutral-400 hover:text-red-600 transition-colors duration-300 font-mono">
               GitHub
             </a>
           </div>
 
-          <button
-            className="md:hidden flex flex-col gap-1.5 p-2"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
+          <button className="md:hidden flex flex-col gap-1.5 p-2" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
             <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
             <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
             <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
@@ -80,13 +67,7 @@ export default function Navigation() {
             transition={{ duration: 0.3 }}
           >
             {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-[clamp(2rem,4vw,4.5rem)] font-extrabold text-white hover:text-[#E50914] transition-colors"
-                style={{ fontFamily: "var(--font-syne), sans-serif" }}
-                onClick={() => setMobileOpen(false)}
-              >
+              <a key={link.label} href={link.href} className="text-4xl font-black text-white hover:text-red-600 transition-colors" style={{ fontFamily: "var(--font-syne), sans-serif" }} onClick={() => setMobileOpen(false)}>
                 {link.label}
               </a>
             ))}
